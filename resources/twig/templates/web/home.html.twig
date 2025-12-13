@@ -1,0 +1,50 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+<div class="card">
+    <h1>Welcome to Phoenix Framework</h1>
+    <p>
+        Congratulations! Your Phoenix Framework application is up and running.
+        This starter template demonstrates the key patterns and conventions of the framework.
+    </p>
+
+    <nav class="nav">
+        <a href="/welcome" class="btn">Try the Demo</a>
+    </nav>
+
+    <h2>What's Included</h2>
+    <p>This starter project demonstrates:</p>
+    <ul style="margin-left: 20px; margin-bottom: 20px;">
+        <li><strong>CQRS Pattern</strong> - UseCases with Input, Handler, and Result</li>
+        <li><strong>Service Providers</strong> - Module registration and DI configuration</li>
+        <li><strong>Configuration</strong> - Schema-validated configuration system</li>
+        <li><strong>Routing</strong> - League Route integration</li>
+        <li><strong>View Layer</strong> - Twig templating</li>
+    </ul>
+
+    <h2>Project Structure</h2>
+    <pre><code>src/App/
+├── ApplicationKernel.php        # Application entry point
+├── Http/
+│   ├── RouteProvider.php        # Route definitions
+│   └── Controller/              # HTTP controllers
+└── Modules/
+    └── Welcome/
+        ├── WelcomeServiceProvider.php
+        ├── WelcomeConfigSchemaProvider.php
+        └── UseCases/
+            ├── CreateGreeting/  # Full UseCase example
+            │   ├── CreateGreetingInput.php
+            │   ├── CreateGreetingUseCase.php
+            │   ├── CreateGreetingHandler.php
+            │   └── CreateGreetingResult.php
+            └── GetGreeting/     # Simpler UseCase example</code></pre>
+
+    <h2>Next Steps</h2>
+    <ol style="margin-left: 20px;">
+        <li>Explore the <code>src/App/Modules/Welcome</code> module</li>
+        <li>Create your own module following the same pattern</li>
+        <li>Read the <a href="https://github.com/fastbill/phoenix-framework/tree/main/docs">Phoenix documentation</a></li>
+    </ol>
+</div>
+{% endblock %}

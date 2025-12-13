@@ -1,0 +1,65 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+<div class="card">
+    <nav class="nav">
+        <a href="/">Home</a>
+    </nav>
+
+    <h1>{{ title }}</h1>
+    <p>Enter your name to receive a personalized greeting.</p>
+
+    {% if error is defined and error %}
+        <div class="error-message">
+            {{ error }}
+        </div>
+    {% endif %}
+
+    {% if errors is defined and errors %}
+        <div class="error-message">
+            <strong>Please fix the following errors:</strong>
+            <ul style="margin-top: 10px; margin-left: 20px;">
+                {% for error in errors %}
+                    <li>{{ error.field }}: {{ error.message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <form method="POST" action="/welcome">
+        <div class="form-group">
+            <label for="name">Your Name</label>
+            <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Enter your name"
+                value="{{ old.name|default('') }}"
+                required
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="message">Custom Message (optional)</label>
+            <textarea
+                id="message"
+                name="message"
+                placeholder="Add a custom message to your greeting"
+                rows="3"
+            >{{ old.message|default('') }}</textarea>
+        </div>
+
+        <button type="submit" class="btn">Create Greeting</button>
+    </form>
+
+    <h2 style="margin-top: 30px;">How It Works</h2>
+    <p>When you submit this form:</p>
+    <ol style="margin-left: 20px;">
+        <li><code>WelcomeController::store()</code> receives the request</li>
+        <li><code>CreateGreetingInput::create()</code> validates the input</li>
+        <li><code>CreateGreetingUseCase</code> is dispatched via <code>DispatcherService</code></li>
+        <li><code>CreateGreetingHandler</code> processes the request</li>
+        <li><code>CreateGreetingResult</code> returns success or failure</li>
+    </ol>
+</div>
+{% endblock %}

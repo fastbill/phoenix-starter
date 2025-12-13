@@ -1,0 +1,33 @@
+# Dependencies
+/vendor/
+/node_modules/
+
+# IDE
+/.idea/
+/.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Build artifacts
+/coverage/
+/.phpunit.result.cache
+/.phpunit.cache/
+
+# Environment and secrets
+.env
+.env.local
+.env.*.local
+config/.config.local.php
+
+# Logs and cache
+/var/
+*.log
+
+# Runtime data
+*.pid
+*.seed
+*.pid.lock
+
+# Compiled files
+*.phar
