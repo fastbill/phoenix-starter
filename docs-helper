@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
 # Documentation helper script using phoenix-docs Docker image
-# Usage: ./docs [command]
+# Usage: ./docs-helper [command]
 #
 # Commands:
 #   init    Initialize docs/ folder with templates
@@ -27,7 +27,7 @@ case "${1:-help}" in
   help|--help|-h|"")
     echo "Documentation helper script"
     echo ""
-    echo "Usage: ./docs [command]"
+    echo "Usage: ./docs-helper [command]"
     echo ""
     echo "Commands:"
     echo "  init    Initialize docs/ folder with templates"
@@ -37,7 +37,7 @@ case "${1:-help}" in
     ;;
   *)
     echo "Unknown command: $1"
-    echo "Run './docs help' for usage"
+    echo "Run './docs-helper help' for usage"
     exit 1
     ;;
 esac
