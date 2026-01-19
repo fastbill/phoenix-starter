@@ -2,14 +2,15 @@
 
 declare(strict_types=1);
 
-use App\ApplicationKernel;
+// Suppress deprecation notices from legacy packages
+error_reporting(E_ALL & ~E_DEPRECATED);
 
-// Set default timezone
+use Fastbill\Phoenix\Starter\ApplicationKernel;
+
 date_default_timezone_set('Europe/Berlin');
 
-// Load Composer autoloader
+// Autoload dependencies
 require_once dirname(__FILE__, 2) . '/vendor/autoload.php';
 
-// Bootstrap and run the application
 $app = new ApplicationKernel(dirname(__FILE__, 2));
 $app->boot()->run();

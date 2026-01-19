@@ -1,0 +1,82 @@
+# =============================================================================
+# Phoenix Framework Starter - Docker Compose (Development)
+# =============================================================================
+# Usage:
+#   docker compose -f docker-compose.yml -f docker-compose.dev.yml up
+# =============================================================================
+
+services:
+  app:
+    # TODO: Switch to :development once the image is published
+    image: ghcr.io/fastbill/phoenix-webapp:latest
+    volumes:
+      # Mount application code
+      - .:/var/www/html
+      # Persist Caddy data
+      - caddy_data:/data
+      - caddy_config:/config
+    environment:
+      APP_ENV: development
+      APP_DEBUG: "true"
+      SERVER_NAME: localhost
+      # Xdebug
+      PHP_IDE_CONFIG: serverName=${XDEBUG_SERVER_NAME:-phoenix}
+      XDEBUG_MODE: ${XDEBUG_MODE:-debug}
+    tty: true
+    restart: "no"
+
+  # Expose MySQL port for local tools
+  mysql:
+    ports:
+      - "${MYSQL_PORT:-3306}:3306"
+
+  # Expose Redis port for local tools
+  redis:
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+
+  # RabbitMQ for queue (optional)
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: phoenix-rabbitmq
+    ports:
+      - "${RABBITMQ_PORT:-5672}:5672"
+      - "${RABBITMQ_MANAGEMENT_PORT:-15672}:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER:-phoenix}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASS:-phoenix}
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - phoenix
+    profiles:
+      - queue
+
+  # Queue worker (optional)
+  worker:
+    # TODO: Switch to :development once the image is published
+    image: ghcr.io/fastbill/phoenix-worker:latest
+    volumes:
+      - .:/var/www/html
+    environment:
+      APP_ENV: development
+      APP_DEBUG: "true"
+      DB_CONNECTION: mysql
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: ${MYSQL_DATABASE:-phoenix}
+      DB_USERNAME: ${MYSQL_USER:-phoenix}
+      DB_PASSWORD: ${MYSQL_PASSWORD:-phoenix}
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    networks:
+      - phoenix
+    depends_on:
+      - mysql
+      - redis
+    profiles:
+      - queue
+    restart: "no"
+
+volumes:
+  rabbitmq_data:

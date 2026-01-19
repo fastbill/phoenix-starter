@@ -1,40 +1,44 @@
 {
-    "name": "fastbill/phoenix-starter",
-    "description": "Starter project template for Phoenix Framework applications",
-    "type": "project",
-    "license": "MIT",
-    "keywords": ["phoenix", "framework", "starter", "template", "fastbill"],
+    "name": "fastbill/phoenix-starter-app",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@github.com:fastbill/phoenix.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/fastbill/phoenix-code-quality.git"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Fastbill\\Phoenix\\Starter\\": "App"
+        }
+    },
     "require": {
-        "php": "^7.4 || ^8.0",
-        "ext-pdo": "*",
-        "fastbill/phoenix-framework": "^1.0"
+        "php": "^8.1",
+        "fastbill/phoenix-framework": "^0.28.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.6",
-        "mockery/mockery": "^1.6"
+        "fastbill/phoenix-code-quality": "^1.1.0"
     },
-    "autoload": {
-        "psr-4": {
-            "App\\": "src/App/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests/"
-        }
-    },
-    "minimum-stability": "stable",
-    "prefer-stable": true,
     "config": {
         "sort-packages": true,
         "optimize-autoloader": true,
+        "platform": {
+            "php": "8.1.0"
+        },
         "allow-plugins": {
-            "php-http/discovery": true
+            "php-http/discovery": true,
+            "phpstan/extension-installer": true
         }
     },
     "scripts": {
         "test": "phpunit",
-        "test-coverage": "phpunit --coverage-html coverage",
-        "serve": "php -S localhost:8080 -t public"
+        "phpstan": "phpstan analyse",
+        "cs:fix": "php-cs-fixer fix",
+        "cs:check": "php-cs-fixer fix --dry-run --diff",
+        "hooks:install": "git config core.hooksPath .githooks"
     }
 }

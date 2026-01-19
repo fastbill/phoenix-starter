@@ -1,0 +1,11 @@
+parameters:
+    level: 1
+
+    phpVersion: 70400
+
+    paths:
+        - App
+        - tests
+
+    excludePaths:
+        - vendor/*
