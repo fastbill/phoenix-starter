@@ -1,0 +1,31 @@
+# Phoenix Starter CI/CD Pipeline
+
+include:
+  - project: 'phoenix/devops/ci-templates'
+    file: '/library.yml'
+
+# ------------------------------------------------------------------------------
+# Disabled Jobs
+# ------------------------------------------------------------------------------
+# The starter template only needs linting and testing.
+# To enable these jobs in your project, remove or comment out the sections below.
+
+# Documentation (enable if you have docs/ directory)
+pages:
+  rules:
+    - when: never
+
+# Release workflow (enable for versioned releases)
+create-release:
+  rules:
+    - when: never
+
+# Slack notifications (enable with SLACK_WEBHOOK_URL variable)
+notify-slack:
+  rules:
+    - when: never
+
+# Satis publishing (enable for Composer packages)
+satis-update:
+  rules:
+    - when: never

@@ -7,8 +7,7 @@
 
 services:
   app:
-    # TODO: Switch to :development once the image is published
-    image: ghcr.io/fastbill/phoenix-webapp:latest
+    image: docker.fastbill.com/phoenix/devops/docker-images/webapp-dev
     volumes:
       # Mount application code
       - .:/var/www/html
@@ -54,8 +53,7 @@ services:
 
   # Queue worker (optional)
   worker:
-    # TODO: Switch to :development once the image is published
-    image: ghcr.io/fastbill/phoenix-worker:latest
+    image: docker.fastbill.com/phoenix/devops/docker-images/worker-dev
     volumes:
       - .:/var/www/html
     environment:
